@@ -9,16 +9,18 @@ export async function POST(req: Request) {
         const body = await req.json();
         const { name } = body;
 
-        if (!userId) return new NextResponse('Unauthorized', { status: 403 });
-        if (!name) return new NextResponse('Name is required', { status: 400 });
+        if (!userId)
+            return new NextResponse('Access Unauthorized ❌', { status: 403 });
+        if (!name)
+            return new NextResponse('Name is required 📝🗒✏📋', { status: 400 });
 
+        // Creamos un nuevo registro en la Esquema PrismaBD (MySQL)
         const store = await prismadb.store.create({
             data: {
                 name,
                 userId,
             },
         });
-
         return NextResponse.json(store);
     } catch (error) {
         console.log('[STORES_POST]', error);

@@ -14,11 +14,7 @@ const SetUpPage = () => {
         }
     }, [isOpen, onOpen]);
 
-    return (
-        <>
-            <div className='flex justify-end p-5 mx-5'>Root Page</div>
-        </>
-    );
+    return null;
 };
 
 export default SetUpPage;

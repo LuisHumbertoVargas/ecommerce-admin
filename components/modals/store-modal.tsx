@@ -1,14 +1,14 @@
 'use client';
 
-import * as z from 'zod'; // Importación de la biblioteca para validación y esquematización de datos
-import axios from 'axios';
-import { useForm } from 'react-hook-form'; // Importación del hook para gestionar formularios en React
-import { zodResolver } from '@hookform/resolvers/zod'; // Importación del resolver para integrar validación zod con react-hook-form
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
+import * as z from 'zod'; // Biblioteca para validación y esquematización de datos
+import axios from 'axios'; // Biblioteca para realizar solicitudes HTTP
+import { useForm } from 'react-hook-form'; // Hook para gestionar formularios en React
+import { zodResolver } from '@hookform/resolvers/zod'; // Resolver para integrar validación zod con react-hook-form
 
-import { useStoreModal } from '@/hooks/use-store-modal'; // Importación de un hook personalizado para manejar la ventana modal
-import { Modal } from '@/components/ui/modal'; // Importación de un componente personalizado para representar una ventana modal
+import { useState } from 'react'; // Hook para manejar el estado
+import { toast } from 'react-hot-toast'; // Biblioteca para mostrar notificaciones
+import { useStoreModal } from '@/hooks/use-store-modal'; // Hook personalizado para manejar la ventana modal
+import { Modal } from '@/components/ui/modal'; // Componente personalizado para representar una ventana modal
 import {
     Form,
     FormControl,
@@ -16,9 +16,9 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+} from '@/components/ui/form'; // Componentes personalizados relacionados con formularios
+import { Input } from '@/components/ui/input'; // Componente personalizado de entrada de texto
+import { Button } from '@/components/ui/button'; // Componente personalizado de botón
 
 // Definición del esquema de validación utilizando zod
 const formSchema = z.object({
@@ -30,7 +30,7 @@ export const StoreModal = () => {
     // Uso del hook useStoreModal para obtener la lógica relacionada con la ventana modal
     const storeModal = useStoreModal();
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false); // Estado para controlar el estado de carga del formulario
 
     // Uso del hook useForm para configurar un formulario con validación basada en el esquema formSchema
     const form = useForm<z.infer<typeof formSchema>>({
@@ -40,19 +40,22 @@ export const StoreModal = () => {
         },
     });
 
+    // Función que se ejecuta al enviar el formulario
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             setLoading(true);
+            // Realizar una solicitud POST a la API para crear una nueva tienda
             const response = await axios.post('/api/stores', values);
-            toast.success('Store created 🚀');
+
+            window.location.assign(`/${response.data.id}`);
         } catch (error) {
-            toast.error('Something went wrong ❌');
+            toast.error('Something went wrong');
         } finally {
             setLoading(false);
         }
     };
 
-    // Devolución del componente Modal con propiedades y contenido
+    // Devuelve el componente Modal con propiedades y contenido
     return (
         <Modal
             title='Create Store' // Título de la ventana modal
