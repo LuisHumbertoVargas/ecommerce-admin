@@ -30,6 +30,7 @@ export const StoreModal = () => {
     // Uso del hook useStoreModal para obtener la lógica relacionada con la ventana modal
     const storeModal = useStoreModal();
 
+    const [inputField, setInputField] = useState('');
     const [loading, setLoading] = useState(false); // Estado para controlar el estado de carga del formulario
 
     // Uso del hook useForm para configurar un formulario con validación basada en el esquema formSchema
@@ -76,7 +77,7 @@ export const StoreModal = () => {
                                         <FormControl>
                                             <Input
                                                 disabled={loading}
-                                                placeholder='E-Commerce'
+                                                placeholder={'E-Commerce'}
                                                 {...field}
                                             />
                                         </FormControl>
@@ -89,6 +90,7 @@ export const StoreModal = () => {
                                     disabled={loading}
                                     variant='outline'
                                     onClick={storeModal.onClose}
+                                    type='button'
                                 >
                                     Cancel
                                 </Button>
