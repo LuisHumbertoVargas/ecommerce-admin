@@ -2,9 +2,9 @@
 
 import axios from 'axios';
 import { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
+import toast from 'react-hot-toast';
+import { useParams, useRouter, redirect } from 'next/navigation';
 
 import {
     DropdownMenu,
@@ -16,39 +16,39 @@ import {
 import { Button } from '@/components/ui/button';
 import { AlertModal } from '@/components/modals/alert-modal';
 
-import { BillboardColumn } from './columns';
+import { SizeColumn } from './columns';
 
 interface CellActionProps {
-    data: BillboardColumn;
+    data: SizeColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     const router = useRouter();
     const params = useParams();
 
-    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
-
-    const onCopy = (id: string) => {
-        navigator.clipboard.writeText(id);
-        toast.success('Billboard ID copied');
-    };
+    const [loading, setLoading] = useState(false);
 
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+            await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
             router.refresh();
-            toast.success('Billboard deleted.');
+            toast.success('Size deleted.');
         } catch (error) {
             toast.error(
-                'Make sure you removed all categories using this billboard first.'
+                'Make sure you removed all products using this size first.'
             );
         } finally {
-            setLoading(false);
             setOpen(false);
-            location.reload()
+            setLoading(false);
+            location.reload();
         }
+    };
+
+    const onCopy = (id: string) => {
+        navigator.clipboard.writeText(id);
+        toast.success('Size ID copied');
     };
 
     return (
@@ -74,9 +74,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         onClick={() =>
-                            router.push(
-                                `/${params.storeId}/billboards/${data.id}`
-                            )
+                            router.push(`/${params.storeId}/sizes/${data.id}`)
                         }
                     >
                         <Edit className='mr-2 h-4 w-4' />

@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+
 import { Modal } from '@/components/ui/modal';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 interface AlertModalProps {
     isOpen: boolean;
@@ -17,6 +19,8 @@ export const AlertModal: React.FC<AlertModalProps> = ({
     onConfirm,
     loading,
 }) => {
+    const router = useRouter();
+
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -32,10 +36,21 @@ export const AlertModal: React.FC<AlertModalProps> = ({
             title='Are you sure?'
             description='This action cannot be undone'
             isOpen={isOpen}
-            onClose={onClose}
+            onClose={() => {
+                onClose();
+                // TODO Verificar el estado de carga y eliminación de datos 
+                location.reload(); 
+            }}
         >
             <div className='pt-6 space-x-2 flex items-center justify-end w-full'>
-                <Button disabled={loading} variant='outline' onClick={onClose}>
+                <Button
+                    disabled={loading}
+                    variant='outline'
+                    onClick={() => {
+                        onClose();
+                        location.reload();
+                    }}
+                >
                     Cancel
                 </Button>
                 <Button

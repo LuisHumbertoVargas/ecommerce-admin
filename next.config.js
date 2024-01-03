@@ -16,7 +16,7 @@ const nextConfig = {
                     },
                     {
                         key: 'Access-Control-Allow-Methods',
-                        value: 'GET, POST, PUT, DELETE',
+                        value: 'GET, POST, PUT, DELETE, PATCH',
                     },
                     {
                         key: 'Access-Control-Allow-Headers',
