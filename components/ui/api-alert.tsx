@@ -53,5 +53,5 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
                 </Button>
             </AlertDescription>
         </Alert>
-    );
+        );
 };

@@ -2,7 +2,7 @@ import prismadb from '@/lib/prismadb'; // Importa la biblioteca prismadb para in
 import { auth } from '@clerk/nextjs'; // Importa la función de autenticación de la biblioteca Clerk
 import { NextResponse } from 'next/server'; // Importa la clase NextResponse de la biblioteca Next.js
 
-// Función para manejar la solicitud PATCH
+// Función para modificar parcialmente un recurso de la BD
 export async function PATCH(
     req: Request,
     { params }: { params: { storeId: string } }
