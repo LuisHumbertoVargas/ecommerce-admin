@@ -16,7 +16,7 @@ const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
       size: true,
       color: true,
     },
-    orderBy: {
+    orderBy: {  
       createdAt: 'desc',
     },
   });
@@ -31,6 +31,7 @@ const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
     size: item.size.name,
     color: item.color.value,
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    updatedAt: item.updatedAt,
   }));
 
   return (

@@ -8,6 +8,7 @@ export type CategoryColumn = {
     name: string;
     billboardLabel: string;
     createdAt: string;
+    updatedAt: Date;
 };
 
 export const columns: ColumnDef<CategoryColumn>[] = [
@@ -22,8 +23,12 @@ export const columns: ColumnDef<CategoryColumn>[] = [
     },
     {
         accessorKey: 'createdAt',
-        header: 'Date',
+        header: 'Created',
     },
+    {
+        accessorKey: 'updatedAt',
+        header: 'Last updated',
+      },
     {
         id: 'actions',
         cell: ({ row }) => <CellAction data={row.original} />,
